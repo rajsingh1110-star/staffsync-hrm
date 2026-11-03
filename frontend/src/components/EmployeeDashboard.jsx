@@ -21,10 +21,10 @@ export default function EmployeeDashboard({ user, onLogout }) {
       const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
       const [annRes, trainRes, leaveRes, attRes] = await Promise.allSettled([
-        axios.get('http://localhost:5000/api/announcements', authHeader),
-        axios.get('http://localhost:5000/api/trainings', authHeader),
-        axios.get('http://localhost:5000/api/leaves', authHeader),
-        axios.get('http://localhost:5000/api/attendance', authHeader)
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/announcements', authHeader),
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/trainings', authHeader),
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/leaves', authHeader),
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/attendance', authHeader)
       ]);
 
       if (annRes.status === 'fulfilled' && Array.isArray(annRes.value.data)) {
@@ -54,7 +54,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
     setLoadingLeave(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/leaves', leaveData, {
+      await axios.post('https://staffsync-backend-zizn.onrender.com/api/leaves', leaveData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLeaveData({ startDate: '', endDate: '', reason: '' });

@@ -26,9 +26,9 @@ export default function HRDashboard({ user, onLogout }) {
       const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
       const [leaveRes, empRes, attRes] = await Promise.allSettled([
-        axios.get('http://localhost:5000/api/leaves', authHeader),
-        axios.get('http://localhost:5000/api/employees', authHeader),
-        axios.get('http://localhost:5000/api/attendance', authHeader)
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/leaves', authHeader),
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/employees', authHeader),
+        axios.get('https://staffsync-backend-zizn.onrender.com/api/attendance', authHeader)
       ]);
 
       if (leaveRes.status === 'fulfilled' && Array.isArray(leaveRes.value.data)) {
@@ -53,7 +53,7 @@ export default function HRDashboard({ user, onLogout }) {
   const handleUpdateStatus = async (leaveId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/leaves/${leaveId}`, 
+      await axios.patch(`https://staffsync-backend-zizn.onrender.com/api/leaves/${leaveId}`, 
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -69,7 +69,7 @@ export default function HRDashboard({ user, onLogout }) {
     setLoadingEmp(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/employees', empForm, {
+      await axios.post('https://staffsync-backend-zizn.onrender.com/api/employees', empForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEmpForm({ name: '', email: '', department: '', position: '', salary: '', joinDate: '', phone: '', address: '' });
@@ -86,7 +86,7 @@ export default function HRDashboard({ user, onLogout }) {
     if (!window.confirm('Are you sure you want to delete this employee?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/employees/${empId}`, {
+      await axios.delete(`https://staffsync-backend-zizn.onrender.com/api/employees/${empId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchHRData();
@@ -101,7 +101,7 @@ export default function HRDashboard({ user, onLogout }) {
     setLoadingAnnouncement(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/announcements', announcementForm, {
+      await axios.post('https://staffsync-backend-zizn.onrender.com/api/announcements', announcementForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAnnouncementForm({ title: '', message: '', target: 'All' });
