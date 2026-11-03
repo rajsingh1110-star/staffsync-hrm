@@ -20,8 +20,8 @@ export default function Login({ onLoginSuccess }) {
     setLoading(true);
     
     const endpoint = isRegistering 
-      ? 'http://localhost:5000/api/auth/register' 
-      : 'http://localhost:5000/api/auth/login';
+      ? 'https://staffsync-backend-zizn.onrender.com/api/auth/register' 
+      : 'https://staffsync-backend-zizn.onrender.com/api/auth/login';
 
     try {
       const response = await axios.post(endpoint, formData);
